@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { AddItemButton } from "../../styled-component/style";
+import React from "react";
+import { AddItemButton } from "../../styled-component/style";   
 import { NewItemForm } from "../NewItemForm/NewItemForm";
 
 type AddNewItemProps = {
@@ -9,7 +9,7 @@ type AddNewItemProps = {
 };
 
 export const AddnewItem = (props: AddNewItemProps) => {
-  const [showForm, setShowForm] = useState<boolean>(false);
+  const [showForm, setShowForm] = React.useState<boolean>(false);
   const { onAdd, toggleButtonText, dark } = props;
 
   if (showForm) {

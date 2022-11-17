@@ -1,24 +1,31 @@
 import { ColumConteiner, ColumTitle } from "../../styled-component/style";
 import { Card } from "../card/Card";
 import { AddnewItem } from "../AddNewItem/";
+import { useAppState } from "../../state/AppStateContent";
 
 type columProps = {
   text: string;
   index: number;
+  id: string;
 };
 
-export default function Column({ text }: columProps): JSX.Element {
+const Column = ({ text, index, id }: columProps) => {
+  const { state, dispatch } = useAppState();
+
   return (
     <ColumConteiner>
-      <ColumTitle>Todo:</ColumTitle>
-      <Card text="Generate app sacafold" />
-      <Card text="Learn Typescript" />
-      <Card text="begin to uses static typing" />
+      <ColumTitle>{text}</ColumTitle>
+      {state.lists[index].tasks.map((task, i) => (
+        <Card text={task.text} key={task.id} index={i} />
+      ))}
       <AddnewItem
         toggleButtonText="+ Add another card"
-        onAdd={console.log}
+        onAdd={(text) =>
+          dispatch({ type: "ADD_TASK", payload: { text, taskId: id } })
+        }
         dark
       />
     </ColumConteiner>
   );
-}
+};
+export default Column;
